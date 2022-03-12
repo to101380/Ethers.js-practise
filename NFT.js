@@ -20,27 +20,59 @@ const signer = web3.getSigner();
 var nft = new ethers.Contract(nft_address, nft_abi, signer);
 
 
-
-
-
+var address;
 
 async function SHOW_CONTRACT() {  
     
-    // 取得帳號    
-    const address = await signer.getAddress();
+      
+    address = await signer.getAddress();
     $("#my_address").text(address);
-
-    // 取得帳號餘額
+ 
     var balance = await signer.getBalance();
     $("#my_balance").text(ethers.utils.formatUnits(balance)+" ETH");
 
     var contract_balance = await web3.getBalance(nft_address);
-    $("#contract_balance").text(ethers.utils.formatUnits(contract_balance)+" ETH");      
+    $("#contract_balance").text(ethers.utils.formatUnits(contract_balance)+" ETH");   
 
    
 }
 
+
+
+async function VIEW_CONTRACT() {  
+    
+
+    
+    for(var i=1; i<5; i++){
+        var ownerOf = await nft.ownerOf(i);
+        if(address == ownerOf){           
+            var a = await nft.tokenURI(i); 
+            get_img(a);                   
+        }
+  
+    }   
+
+
+    function get_img(_url){
+
+        $(document).ready(function(){
+            $.ajax({
+                method:"GET",
+                url:_url       
+              }).done(function(msg) {   
+                    console.log(msg.image)
+                
+            });
+        })
+
+    }
+
+    
+   
+}
+
 SHOW_CONTRACT();
+VIEW_CONTRACT();
 
 
 var b = nft.queryFilter("Transfer",0,web3.blockNumber);
