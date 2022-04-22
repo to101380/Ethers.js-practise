@@ -130,7 +130,7 @@ if (window.ethereum) {
     web3 = new ethers.providers.Web3Provider(window.ethereum);
 } else {
     // will default to localhost:8545
-    web3 = new ethers.providers.JsonRpcProvider();
+    web3 = new ethers.providers.JsonRpcProvider("https://rinkeby.infura.io/v3/23a922d4f335400fb3caa1466ab7c03e");
 }
 
 const signer = web3.getSigner();
@@ -145,13 +145,13 @@ var dcoffer = new ethers.Contract(contract_address, contract_abi, signer);
 
 async function SHOW_CONTRACT() {  
     
-    // 取得帳號    
-    const address = await signer.getAddress();
-    $("#my_address").text(address);
+    // // 取得帳號    
+    // const address = await signer.getAddress();
+    // $("#my_address").text(address);
 
-    // 取得帳號餘額
-    var balance = await signer.getBalance();
-    $("#my_balance").text(ethers.utils.formatUnits(balance)+" ETH");
+    // // 取得帳號餘額
+    // var balance = await signer.getBalance();
+    // $("#my_balance").text(ethers.utils.formatUnits(balance)+" ETH");
 
     var contract_balance = await web3.getBalance(contract_address);
     $("#contract_balance").text(ethers.utils.formatUnits(contract_balance)+" ETH");

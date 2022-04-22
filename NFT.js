@@ -5,7 +5,6 @@ function toPoint(point) {
 }
 
 
-
 // 確認是否有window.ethereum
 if (window.ethereum) {
     // 啟用metamask        
@@ -22,7 +21,7 @@ var nft = new ethers.Contract(nft_address, nft_abi, signer);
 
 var address;
 
-async function SHOW_CONTRACT() {  
+async function SHOW_CONTRACT() {     
     
       
     address = await signer.getAddress();
@@ -39,40 +38,42 @@ async function SHOW_CONTRACT() {
 
 
 
-async function VIEW_CONTRACT() {  
-    
 
-    
-    for(var i=1; i<5; i++){
-        var ownerOf = await nft.ownerOf(i);
-        if(address == ownerOf){           
-            var a = await nft.tokenURI(i); 
-            get_img(a);                   
-        }
+// var owneNFT =[];
+
+
+// async function VIEW_CONTRACT() {  
+
   
-    }   
+   
+//     for(var i=1; i<5; i++){
+//         var ownerOf = await nft.ownerOf(i);      
+//         if(address == ownerOf){           
+//             var a = await nft.tokenURI(i); 
+//             owneNFT.push(a);
+//         }
+ 
+//     } 
 
 
-    function get_img(_url){
-
-        $(document).ready(function(){
-            $.ajax({
-                method:"GET",
-                url:_url       
-              }).done(function(msg) {   
-                    console.log(msg.image)
-                
-            });
-        })
-
-    }
+// $.ajax({
+//         url: owneNFT[0],
+//         type: "GET",
+//         dataType: "json"               
+//       }).done(function(msg) {                    
+//            console.log(msg.image);                                             
+//     });
 
     
-   
-}
+    
+      
+// }  
+
+// console.log(owneNFT);
+
 
 SHOW_CONTRACT();
-VIEW_CONTRACT();
+// VIEW_CONTRACT();
 
 
 var b = nft.queryFilter("Transfer",0,web3.blockNumber);
@@ -87,5 +88,28 @@ b.then((value) => {
 
 
 
+
+
     
+
+
+
+    
+
+
+
+// new Vue({
+
+//     el: "#test",
+//     data: function () {
+//             return {
+//                 lists: [
+//                     { img : owneNFT[2]},
+//                     { img : owneNFT[0]}                                                                                              
+//                 ]
+//             }
+//         },
+// })
+//              
+
 
